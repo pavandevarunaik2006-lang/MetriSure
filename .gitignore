@@ -1,0 +1,48 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Python virtual environments
+venv/
+venv_*/
+.venv/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Databases / runtime state
+*.db
+*.db-shm
+*.db-wal
+
+# Local runtime folders
+/scratch/
+/uploads/
+/reports/
+
+# IDE / OS
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Antigravity / local AI tooling
+.antigravity/
+.antigravity-ide/
+!backend/uploads/
+!backend/uploads/demo_display_10_005kg.jpg
+!backend/uploads/demo_nameplate_sn001.jpg
+!backend/uploads/demo_test_setup.jpg

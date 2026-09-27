@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+venv_312/
+.venv/
+env/
+ENV/
+
+# Testing & linting
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & secrets
+.env
+*.db
+*.db-shm
+*.db-wal
+
+# Uploads directory: ignore generated PDFs/DOCXs and runtime uploads, keep demo assets
+uploads/*
+!uploads/demo_display_10_005kg.jpg
+!uploads/demo_nameplate_sn001.jpg
+!uploads/demo_test_setup.jpg
+!uploads/demo_display_capture.txt
+!uploads/demo_visualproof.txt

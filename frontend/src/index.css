@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-navy-50: #f0f4ff;
+  --color-navy-100: #dbe4ff;
+  --color-navy-200: #bac8ff;
+  --color-navy-300: #91a7ff;
+  --color-navy-400: #748ffc;
+  --color-navy-500: #5c7cfa;
+  --color-navy-600: #4c6ef5;
+  --color-navy-700: #4263eb;
+  --color-navy-800: #3b5bdb;
+  --color-navy-900: #364fc7;
+  --color-navy-950: #1e2a4a;
+  
+  --color-cyan-50: #e3fafc;
+  --color-cyan-100: #c5f6fa;
+  --color-cyan-200: #99e9f2;
+  --color-cyan-300: #66d9e8;
+  --color-cyan-400: #3bc9db;
+  --color-cyan-500: #22b8cf;
+  --color-cyan-600: #15aabf;
+  --color-cyan-700: #1098ad;
+  --color-cyan-800: #0c8599;
+  --color-cyan-900: #0b7285;
+  
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f8fafc;
+  --color-surface-tertiary: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+/* Base styles */
+html { scroll-behavior: smooth; }
+body { 
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background: var(--color-surface-secondary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--color-navy-500);
+  outline-offset: 2px;
+}
