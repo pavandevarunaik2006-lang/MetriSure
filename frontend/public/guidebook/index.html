@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>METRISURE — Digital Guidebook | SIH2026 (SIH26035)</title>
+  <meta name="description" content="Official Digital Guidebook and Technical Walkthrough for MetriSure: Digital Test Report Generation System for Non-Automatic Weighing Instruments (OIML R-76)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-sidebar: #090d16;
+      --sidebar-hover: #151e2e;
+      --sidebar-active: #1e293b;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+      --primary: #1d4ed8;
+      --primary-light: #eff6ff;
+      --accent: #0284c7;
+      --accent-badge: #e0f2fe;
+      --pass: #059669;
+      --pass-bg: #ecfdf5;
+      --fail: #dc2626;
+      --fail-bg: #fef2f2;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.06);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.06);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: 320px;
+      min-width: 320px;
+      background: var(--bg-sidebar);
+      color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 50;
+      transition: transform 0.25s ease;
+    }
+
+    .brand-header {
+      padding: 24px 20px 20px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0) 100%);
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+    }
+
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-subtle);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .nav-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 12px;
+    }
+
+    .nav-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .nav-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 3px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--sidebar-hover);
+      color: #f8fafc;
+    }
+
+    .nav-item.active {
+      background: var(--sidebar-active);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      background: #38bdf8;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .nav-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .nav-item.active .nav-num {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .nav-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      color: #64748b;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .external-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
+    .external-link-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    /* Main Content Layout */
+    main.main-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg-page);
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 60px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 40;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .breadcrumbs span.current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: #1e40af;
+    }
+
+    .page-indicator {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Content Area */
+    .content-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 36px 40px 60px 40px;
+      scroll-behavior: smooth;
+    }
+
+    .page-section {
+      display: none;
+      max-width: 1140px;
+      margin: 0 auto;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography & Hierarchy */
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .tag-cyan { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+    .tag-slate { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+    .tag-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .tag-green { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .tag-red { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+    h1.page-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    p.page-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Cards & Panels */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    /* Workflow Diagram Styles */
+    .workflow-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    .step-node {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .step-node:hover {
+      border-color: #93c5fd;
+      box-shadow: var(--shadow-md);
+      transform: translateX(4px);
+    }
+
+    .step-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .step-route {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Screenshots & Visual Frames */
+    .screenshot-box {
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: var(--shadow-md);
+      margin: 16px 0 24px 0;
+      cursor: zoom-in;
+      position: relative;
+    }
+
+    .screenshot-header {
+      background: #1e293b;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+
+    .dot-controls {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .screenshot-url {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .screenshot-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .screenshot-caption {
+      background: #f8fafc;
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #475569;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .annotated-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #334155;
+    }
+
+    .callout-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Comparison Table */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 16px 0;
+    }
+    table.data-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    table.data-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      color: #334155;
+    }
+    table.data-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .badge-pass {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--pass-bg);
+      color: var(--pass);
+      border: 1px solid #a7f3d0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-fail {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--fail-bg);
+      color: var(--fail);
+      border: 1px solid #fecaca;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Callout Alert Boxes */
+    .alert-box {
+      border-left: 4px solid #2563eb;
+      background: #eff6ff;
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 18px 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #1e3a8a;
+    }
+    .alert-box.alert-amber {
+      border-left-color: #d97706;
+      background: #fffbeb;
+      color: #92400e;
+    }
+    .alert-box.alert-red {
+      border-left-color: #dc2626;
+      background: #fef2f2;
+      color: #991b1b;
+    }
+    .alert-box.alert-green {
+      border-left-color: #059669;
+      background: #ecfdf5;
+      color: #065f46;
+    }
+    .alert-box strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    /* Interactive Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      padding: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox-inner {
+      max-width: 92vw;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      background: #0f172a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .lightbox-bar {
+      padding: 12px 20px;
+      background: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid #334155;
+    }
+    .lightbox-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .lightbox-close:hover {
+      color: #ffffff;
+    }
+    .lightbox-body {
+      padding: 16px;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+    }
+    .lightbox-body img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    /* Bottom Section Navigation */
+    .page-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      aside.sidebar {
+        position: fixed;
+        left: -320px;
+        top: 0;
+        bottom: 0;
+        box-shadow: var(--shadow-xl);
+      }
+      aside.sidebar.open {
+        transform: translateX(320px);
+      }
+      .content-container {
+        padding: 24px 20px;
+      }
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Print styles for export to PDF */
+    @media print {
+      body {
+        height: auto;
+        overflow: visible;
+        background: #ffffff;
+      }
+      aside.sidebar, header.topbar, .page-footer-nav, .top-actions, .lightbox {
+        display: none !important;
+      }
+      main.main-viewport {
+        height: auto;
+        overflow: visible;
+      }
+      .content-container {
+        padding: 0;
+        overflow: visible;
+      }
+      .page-section {
+        display: block !important;
+        page-break-after: always;
+        break-after: page;
+        margin-bottom: 40px;
+      }
+      .card {
+        box-shadow: none;
+        border: 1px solid #cbd5e1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-header">
+      <div class="brand-pill">SIH2026 ⬝ SIH26035</div>
+      <div class="brand-title">
+        <div class="brand-icon">M</div>
+        <span>METRISURE</span>
+      </div>
+      <div class="brand-subtitle">
+        Digital Test Report Generation System for Non-Automatic Weighing Instruments
+      </div>
+    </div>
+
+    <nav class="nav-scroll">
+      <a class="nav-item active" onclick="goToPage(1)">
+        <span class="nav-num">01</span>
+        <span class="nav-text">Cover & Executive Summary</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(2)">
+        <span class="nav-num">02</span>
+        <span class="nav-text">What is MetriSure?</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(3)">
+        <span class="nav-num">03</span>
+        <span class="nav-text">Complete System Workflow</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(4)">
+        <span class="nav-num">04</span>
+        <span class="nav-text">Dashboard & RBAC</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(5)">
+        <span class="nav-num">05</span>
+        <span class="nav-text">Instrument & Lab Setup</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(6)">
+        <span class="nav-num">06</span>
+        <span class="nav-text">Test Sessions & Execution</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(7)">
+        <span class="nav-num">07</span>
+        <span class="nav-text">Deterministic Engine</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(8)">
+        <span class="nav-num">08</span>
+        <span class="nav-text">Why FAIL & DecisionTrace</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(9)">
+        <span class="nav-num">09</span>
+        <span class="nav-text">Review, Approval & Reports</span>
+      </a>
+      <a class="nav-item" onclick="goToPage(10)">
+        <span class="nav-num">10</span>
+        <span class="nav-text">E2E Architecture & Access</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="https://metri-sure.vercel.app" target="_blank" class="external-link-btn">
+        <span>🌐 Live Application</span>
+        <span>↗</span>
+      </a>
+      <a href="https://github.com/pavandevarunaik2006-lang/MetriSure" target="_blank" class="external-link-btn">
+        <span>💻 GitHub Repository</span>
+        <span>↗</span>
+      </a>
+      <div style="font-size: 10px; color: #475569; text-align: center; margin-top: 4px;">
+        Deterministic Metrology Platform v1.0.0
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="main-viewport">
+    <header class="topbar">
+      <div class="breadcrumbs">
+        <button id="mobileMenuBtn" style="display:none; background:none; border:none; font-size:20px; cursor:pointer;" onclick="toggleSidebar()">☰</button>
+        <span>MetriSure Guidebook</span>
+        <span>/</span>
+        <span class="current" id="breadcrumbTitle">Page 1 — Cover & Executive Summary</span>
+      </div>
+
+      <div class="top-actions">
+        <span class="page-indicator" id="pageIndicator">Page 1 of 10</span>
+        <button class="btn btn-secondary" onclick="prevPage()">← Previous</button>
+        <button class="btn btn-primary" onclick="nextPage()">Next →</button>
+        <button class="btn btn-secondary" onclick="window.print()" title="Export or print PDF">🖨️ Export PDF</button>
+      </div>
+    </header>
+
+    <div class="content-container">
+
+      <!-- ========================================================
+           PAGE 1: COVER & EXECUTIVE SUMMARY
+           ======================================================== -->
+      <section class="page-section active" id="page-1">
+        <div class="badge-bar">
+          <span class="tag tag-blue">SIH 2026 Finalist</span>
+          <span class="tag tag-cyan">Problem Statement: SIH26035</span>
+          <span class="tag tag-slate">OIML Recommendation R-76</span>
+          <span class="tag tag-green">Zero-AI Statutory Decision Path</span>
+        </div>
+
+        <h1 class="page-title">METRISURE</h1>
+        <p class="page-subtitle" style="font-size: 18px; color: #1e293b; font-weight: 500;">
+          Digital Test Report Generation System for Non-Automatic Weighing Instruments (NAWI)
+        </p>
+
+        <!-- Ministry & Department Card -->
+        <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border: none;">
+          <div class="grid-2" style="align-items: center;">
+            <div>
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">
+                Problem Statement Alignment
+              </div>
+              <div style="font-size: 15px; font-weight: 700; color: #f8fafc; margin-bottom: 4px;">
+                Ministry of Consumer Affairs, Food & Public Distribution
+              </div>
+              <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 12px;">
+                Department of Consumer Affairs — Legal Metrology Division
+              </div>
+              <p style="font-size: 13px; line-height: 1.6; color: #94a3b8;">
+                An enterprise-grade, deterministic digital platform engineered to eliminate manual paper and spreadsheet errors in legal metrology testing, dynamically enforce OIML R-76 Maximum Permissible Error (MPE) envelopes, and generate cryptographically verifiable Digital Test Reports.
+              </p>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); padding: 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #38bdf8; margin-bottom: 8px;">
+                Quick Verification Metadata
+              </div>
+              <div style="font-size: 12px; font-family: var(--font-mono); line-height: 1.8; color: #e2e8f0;">
+                <div><strong>Standard:</strong> OIML R-76-1 (Edition 2006)</div>
+                <div><strong>Classes Evaluated:</strong> Class I, II, III, IIII</div>
+                <div><strong>Demo Reference:</strong> Class III DT-3000 (30 kg)</div>
+                <div><strong>Engine Paradigm:</strong> Pure Deterministic Python Engine</div>
+                <div><strong>Report Format:</strong> Sealed Digital PDF + SHA-256 Digest</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Mockup Showcase -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🖥️ Actual Application Interface — Desktop & Responsive Mobile</span>
+            <span class="tag tag-slate">Real Screen Captures</span>
+          </div>
+          <div style="text-align: center; padding: 10px 0;">
+            <img src="./public/assets/hero_device_duo_mockup.png" alt="MetriSure Desktop and Mobile Mockup" style="max-width: 100%; height: auto; border-radius: 8px;" />
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 10px;">
+            The MetriSure responsive web interface operates seamlessly across high-resolution laboratory workstations, tablet inspection benches, and mobile devices without requiring third-party native installations.
+          </p>
+        </div>
+
+        <!-- Core Value Proposition -->
+        <div class="grid-4">
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size: 20px; margin-bottom: 8px;">⚖️</div>
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">Deterministic MPE</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Exact OIML R-76 mathematical formulas calculate step-by-step error bounds without human error.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size: 20px; margin-bottom: 8px;">🔍</div>
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">DecisionTrace</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Every pass or fail verdict provides clear mathematical proof and rule references for full transparency.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size: 20px; margin-bottom: 8px;">📸</div>
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">Evidence Binding</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Observations are cryptographically bound with raw measurements, timestamps, and optical images.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size: 20px; margin-bottom: 8px;">🛡️</div>
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">4-Eye Governance</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Segregation of duties across Technician, Reviewer, Approver, and Administrator roles.</div>
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <div></div>
+          <button class="btn btn-primary" onclick="goToPage(2)">Continue to What is MetriSure? →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 2: WHAT IS METRISURE?
+           ======================================================== -->
+      <section class="page-section" id="page-2">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Core Concept</span>
+          <span class="tag tag-slate">Metrology Problem Solving</span>
+        </div>
+        <h1 class="page-title">What is MetriSure?</h1>
+        <p class="page-subtitle">
+          Transforming manual, fragmented weighing instrument evaluations into structured, explainable, and tamper-resistant digital test reports.
+        </p>
+
+        <!-- Problem vs Solution -->
+        <div class="grid-2">
+          <div class="card" style="border-left: 4px solid var(--fail);">
+            <div class="card-title" style="color: var(--fail);">❌ The Legacy Evaluation Problem</div>
+            <ul style="font-size: 13px; line-height: 1.8; color: #475569; padding-left: 18px; margin-top: 12px;">
+              <li><strong>Manual Data Transcription:</strong> Technicians record observations on paper workbooks or ad-hoc Excel sheets, leading to transcription and rounding errors.</li>
+              <li><strong>Complex MPE Lookups:</strong> Maximum Permissible Error rules vary by load range ($m \le 500e$, $500e < m \le 2000e$, etc.) and are prone to miscalculation.</li>
+              <li><strong>Zero Metrological Traceability:</strong> No tamper-evident cryptographic log binds who performed the test, under what conditions, and using which weights.</li>
+              <li><strong>Delayed Approvals:</strong> Reports take days to compile, review, and manually sign across separated departments.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--pass);">
+            <div class="card-title" style="color: var(--pass);">✅ The MetriSure Solution</div>
+            <ul style="font-size: 13px; line-height: 1.8; color: #475569; padding-left: 18px; margin-top: 12px;">
+              <li><strong>Guided Digital Test Execution:</strong> Standardized multi-stage workflows guide the technician step-by-step through test points.</li>
+              <li><strong>Real-Time Dynamic MPE Calculation:</strong> The compliance engine automatically applies OIML R-76 Table 6 formulas instantly as values are keyed in.</li>
+              <li><strong>Immutable Audit History:</strong> Every observation, review note, and approval is sealed with cryptographic SHA-256 hashes.</li>
+              <li><strong>Instant Official Digital Reports:</strong> Generates tamper-evident PDF reports containing complete decision traces and QR verification links.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Target Stakeholders -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">👥 Who Uses MetriSure?</span>
+          </div>
+          <div class="grid-4">
+            <div style="background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b;">1. Testing Officers / Techs</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Executes physical procedures, enters test observations, and uploads display photos.</div>
+            </div>
+            <div style="background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b;">2. Quality Reviewers</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Examines compliance calculations, checks optical proof, and records independent audit notes.</div>
+            </div>
+            <div style="background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b;">3. Approving Authorities</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Authorized laboratory signatories who perform final review and issue the Digital Test Report.</div>
+            </div>
+            <div style="background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b;">4. Laboratory Directors</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Monitors laboratory throughput, facility readiness, and audits compliance adherence.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Core Architecture Dataflow -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔄 Core Metrological Evaluation Dataflow</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 10px 0;">
+            <div style="background: #f1f5f9; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e1;">1. Instrument</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #f1f5f9; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e1;">2. Laboratory</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #f1f5f9; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e1;">3. Test Session</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #f1f5f9; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e1;">4. Observations</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #eff6ff; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; border: 1px solid #93c5fd; color: #1d4ed8;">5. Compliance Engine</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #f1f5f9; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e1;">6. Review</div>
+            <div style="color: #94a3b8; font-weight: bold;">→</div>
+            <div style="background: #ecfdf5; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; border: 1px solid #a7f3d0; color: #047857;">7. Digital Test Report</div>
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(1)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(3)">Continue to System Workflow →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 3: COMPLETE SYSTEM WORKFLOW
+           ======================================================== -->
+      <section class="page-section" id="page-3">
+        <div class="badge-bar">
+          <span class="tag tag-blue">End-to-End Trace</span>
+          <span class="tag tag-slate">Process Lifecycle</span>
+        </div>
+        <h1 class="page-title">Complete System Workflow</h1>
+        <p class="page-subtitle">
+          A step-by-step walkthrough of how an instrument traverses the MetriSure evaluation lifecycle from initial setup to sealed report issuance.
+        </p>
+
+        <div class="workflow-flow">
+          <!-- Step 1 -->
+          <div class="step-node">
+            <div class="step-badge">01</div>
+            <div class="step-content">
+              <div class="step-title">Authentication & Role-Based Access</div>
+              <div class="step-desc">Users authenticate with their secure credentials. The system provisions granular role-based permissions (Technician, Reviewer, Approver, or Administrator).</div>
+              <span class="step-route">Route: /login ⬝ /dashboard</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-node">
+            <div class="step-badge">02</div>
+            <div class="step-content">
+              <div class="step-title">Instrument Registration & Metadata Enrollment</div>
+              <div class="step-desc">Register non-automatic weighing instrument parameters: manufacturer, model, serial number, accuracy class (I, II, III, IIII), maximum capacity ($Max$), minimum capacity ($Min$), verification interval ($e$), and actual scale interval ($d$).</div>
+              <span class="step-route">Route: /instruments ⬝ /instruments/new ⬝ /instruments/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-node">
+            <div class="step-badge">03</div>
+            <div class="step-content">
+              <div class="step-title">Laboratory Assignment & Environmental Conditioning</div>
+              <div class="step-desc">Assign the instrument to an authorized laboratory facility (e.g. National Metrology Lab Mumbai). Record initial ambient temperature, relative humidity, and barometric pressure.</div>
+              <span class="step-route">Route: /laboratories ⬝ /test-ready/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-node">
+            <div class="step-badge">04</div>
+            <div class="step-content">
+              <div class="step-title">Test Session Initialization & Plan Generation</div>
+              <div class="step-desc">Create a new test session bound to an active RulePack version (e.g. v1.0.0). The system automatically generates standardized test points for Linearity, Repeatability, Eccentricity, Discrimination, and Zero-Setting.</div>
+              <span class="step-route">Route: /test-sessions/new ⬝ /test-plan/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step-node">
+            <div class="step-badge">05</div>
+            <div class="step-content">
+              <div class="step-title">Test Execution & Observation Entry</div>
+              <div class="step-desc">The testing technician keys in reference standard weights ($L$), indicated scale readings ($I$), fractional weight additions ($\Delta L$), and directional progression (increasing vs decreasing). Display photos can be captured and bound as evidence.</div>
+              <span class="step-route">Route: /test-sessions/:id/tests ⬝ /test-execution/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="step-node">
+            <div class="step-badge">06</div>
+            <div class="step-content">
+              <div class="step-title">Deterministic Compliance Calculation</div>
+              <div class="step-desc">The Python compliance engine executes deterministic calculations: corrected indication $P = I + 0.5d - \Delta L$, corrected error $E_c = P - L - E_0$, and compares $|E_c|$ against OIML R-76 MPE limits.</div>
+              <span class="step-route">Route: /api/compliance/evaluate ⬝ /results/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="step-node">
+            <div class="step-badge">07</div>
+            <div class="step-content">
+              <div class="step-title">Why PASS / Why FAIL & DecisionTrace</div>
+              <div class="step-desc">Full mathematical transparency: displays exact numerical evaluations, error bounds, tolerance margin percentages, and the formal regulatory clause governing the ruling.</div>
+              <span class="step-route">Route: /why-pass/:id ⬝ /why-fail/:id ⬝ /decision-trace/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 8 -->
+          <div class="step-node">
+            <div class="step-badge">08</div>
+            <div class="step-content">
+              <div class="step-title">Independent Review Queue & Reviewer Inspection</div>
+              <div class="step-desc">Upon session submission by the technician, the session moves to the Review Queue. An authorized Reviewer examines all observation points, error calculations, and optical evidence, recording formal review notes.</div>
+              <span class="step-route">Route: /review ⬝ /review/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 9 -->
+          <div class="step-node">
+            <div class="step-badge">09</div>
+            <div class="step-content">
+              <div class="step-title">Final Sign-off & Cryptographic Report Issuance</div>
+              <div class="step-desc">An authorized Approver inspects the reviewer's recommendation and issues final cryptographic approval. A sealed Digital Test Report PDF is generated with an immutable SHA-256 checksum.</div>
+              <span class="step-route">Route: /approval/:id ⬝ /reports ⬝ /reports/:id</span>
+            </div>
+          </div>
+
+          <!-- Step 10 -->
+          <div class="step-node">
+            <div class="step-badge">10</div>
+            <div class="step-content">
+              <div class="step-title">Public Verification & Immutable Audit Trail</div>
+              <div class="step-desc">Anyone in possession of the issued report can verify its authentic issuance and checksum via the public verification portal or embedded QR code. All actions are indelibly recorded in the cryptographic audit log.</div>
+              <span class="step-route">Route: /verification/:id ⬝ /audit</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(2)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(4)">Continue to Dashboard & RBAC →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 4: DASHBOARD & ROLE-BASED ACCESS
+           ======================================================== -->
+      <section class="page-section" id="page-4">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Governance</span>
+          <span class="tag tag-slate">Role Permissions</span>
+        </div>
+        <h1 class="page-title">Dashboard & Role-Based Access Control (RBAC)</h1>
+        <p class="page-subtitle">
+          Ensuring strict segregation of duties between test execution, compliance review, certificate issuance, and administrative oversight.
+        </p>
+
+        <!-- Role Matrix -->
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="card" style="border-top: 4px solid #2563eb; margin-bottom: 0;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #2563eb; margin-bottom: 4px;">Role 1</div>
+            <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Technician</div>
+            <div style="font-size: 12px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">Priya Sharma</div>
+            <ul style="font-size: 12px; color: #475569; padding-left: 14px; line-height: 1.6;">
+              <li>Register instruments</li>
+              <li>Initiate test sessions</li>
+              <li>Log load observations</li>
+              <li>Attach optical evidence</li>
+              <li>Submit sessions for review</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #d97706; margin-bottom: 0;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #d97706; margin-bottom: 4px;">Role 2</div>
+            <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Reviewer</div>
+            <div style="font-size: 12px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">Rajesh Kumar</div>
+            <ul style="font-size: 12px; color: #475569; padding-left: 14px; line-height: 1.6;">
+              <li>Inspect review queue</li>
+              <li>Audit raw observations</li>
+              <li>Verify optical proof</li>
+              <li>Record audit notes</li>
+              <li>Recommend approval / reject</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #059669; margin-bottom: 0;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #059669; margin-bottom: 4px;">Role 3</div>
+            <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Approver</div>
+            <div style="font-size: 12px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">Dr. Anita Desai</div>
+            <ul style="font-size: 12px; color: #475569; padding-left: 14px; line-height: 1.6;">
+              <li>Authorized signatory access</li>
+              <li>Inspect reviewer findings</li>
+              <li>Execute final sign-off</li>
+              <li>Issue Digital Test Reports</li>
+              <li>Authorizes certificate hash</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-top: 4px solid #7c3aed; margin-bottom: 0;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #7c3aed; margin-bottom: 4px;">Role 4</div>
+            <div style="font-size: 16px; font-weight: 700; color: #0f172a;">Administrator</div>
+            <div style="font-size: 12px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">Vikram Singh</div>
+            <ul style="font-size: 12px; color: #475569; padding-left: 14px; line-height: 1.6;">
+              <li>User account management</li>
+              <li>Laboratory facility config</li>
+              <li>RulePack version deployment</li>
+              <li>System-wide audit trail review</li>
+              <li>Environment configuration</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Dashboard -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 Actual MetriSure Dashboard Interface</span>
+            <span class="tag tag-slate">Live Application Capture</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/02_dashboard.png', 'MetriSure Application Dashboard Overview')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/dashboard</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/02_dashboard.png" alt="MetriSure Dashboard" />
+            <div class="screenshot-caption">
+              <span>Figure 4.1: Production Dashboard displaying active sessions, evaluation metrics, recent activity, and quick navigation.</span>
+            </div>
+          </div>
+
+          <!-- Annotated Legend -->
+          <div class="annotated-legend">
+            <div class="legend-item">
+              <span class="callout-num">1</span>
+              <div><strong>System Status Cards:</strong> Shows active evaluations, compliance pass rate, and pending review queue items.</div>
+            </div>
+            <div class="legend-item">
+              <span class="callout-num">2</span>
+              <div><strong>Primary Navigation:</strong> Quick access to Instruments, Test Sessions, Compliance, Evidence, Governance, and Reports.</div>
+            </div>
+            <div class="legend-item">
+              <span class="callout-num">3</span>
+              <div><strong>Active Test Sessions:</strong> Direct overview of pending test evaluations with status chips (SUBMITTED, APPROVED).</div>
+            </div>
+            <div class="legend-item">
+              <span class="callout-num">4</span>
+              <div><strong>Current User Session:</strong> Active user identity, role designation badge, and quick role switching demo access.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Login Portal Screenshot -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔐 Authentication & Quick Demo Selector</span>
+            <span class="tag tag-slate">Login Portal</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/01_login.png', 'MetriSure Secure Login & Demo Account Selection')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/login</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/01_login.png" alt="MetriSure Login" />
+            <div class="screenshot-caption">
+              <span>Figure 4.2: Login portal featuring single-click role authentication for evaluation officers and SIH judges.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(3)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(5)">Continue to Instrument Setup →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 5: INSTRUMENT & LABORATORY SETUP
+           ======================================================== -->
+      <section class="page-section" id="page-5">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Setup & Metrological Parameters</span>
+          <span class="tag tag-amber">DEMO DATA — FOR DEMONSTRATION ONLY</span>
+        </div>
+        <h1 class="page-title">Instrument & Laboratory Setup</h1>
+        <p class="page-subtitle">
+          Configuring Non-Automatic Weighing Instruments (NAWI) parameters, accuracy classifications, and environmental gating conditions.
+        </p>
+
+        <!-- Technical Specification Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">⚖️ Production Demo Instrument Specifications</span>
+            <span class="tag tag-blue">Class III DT-3000</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Symbol / Field</th>
+                <th>Production Value</th>
+                <th>Metrological Significance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Manufacturer & Model</strong></td>
+                <td><code>model_name</code></td>
+                <td><strong>DemoTech Industries DT-3000</strong></td>
+                <td>Identifies instrument family and type-approval lineage</td>
+              </tr>
+              <tr>
+                <td><strong>Serial Number</strong></td>
+                <td><code>serial_number</code></td>
+                <td><strong>SN-DEMO-001</strong></td>
+                <td>Unique physical device identification</td>
+              </tr>
+              <tr>
+                <td><strong>Accuracy Class</strong></td>
+                <td><code>accuracy_class</code></td>
+                <td><strong>Class III (Medium Accuracy)</strong></td>
+                <td>Governs applicable OIML R-76 MPE error thresholds (Table 6)</td>
+              </tr>
+              <tr>
+                <td><strong>Maximum Capacity</strong></td>
+                <td>$Max$</td>
+                <td><strong>30.0 kg</strong></td>
+                <td>Upper limit of weighing capability without exceeding tolerances</td>
+              </tr>
+              <tr>
+                <td><strong>Minimum Capacity</strong></td>
+                <td>$Min$</td>
+                <td><strong>0.1 kg ($20\,e$)</strong></td>
+                <td>Lower bound below which weighing results are subject to excessive error</td>
+              </tr>
+              <tr>
+                <td><strong>Verification Scale Interval</strong></td>
+                <td>$e$</td>
+                <td><strong>0.01 kg (10 g)</strong></td>
+                <td>Statutory value used for error tolerance calculation</td>
+              </tr>
+              <tr>
+                <td><strong>Actual Scale Interval</strong></td>
+                <td>$d$</td>
+                <td><strong>0.01 kg (10 g)</strong></td>
+                <td>Scale division displayed on instrument display ($d = e$)</td>
+              </tr>
+              <tr>
+                <td><strong>Number of Intervals</strong></td>
+                <td>$n = Max / e$</td>
+                <td><strong>3,000 divisions</strong></td>
+                <td>Class III compliant range ($500 \le n \le 10,000$)</td>
+              </tr>
+              <tr>
+                <td><strong>Laboratory Facility</strong></td>
+                <td><code>laboratory</code></td>
+                <td><strong>National Metrology Lab Mumbai (NML-MUM)</strong></td>
+                <td>Facility certified for environmental conditions and testing standard weights</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Real Screenshot: Instruments & Detail -->
+        <div class="grid-2">
+          <div class="card" style="margin-bottom:0;">
+            <div class="card-header">
+              <span class="card-title" style="font-size:14px;">📋 Instrument Repository</span>
+            </div>
+            <div class="screenshot-box" onclick="openLightbox('./public/screenshots/03_instruments.png', 'MetriSure Instrument Repository')">
+              <img class="screenshot-img" src="./public/screenshots/03_instruments.png" alt="Instrument Repository" />
+              <div class="screenshot-caption"><span>Figure 5.1: Instruments page with active Class III assets.</span></div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div class="card-header">
+              <span class="card-title" style="font-size:14px;">🔍 DT-3000 Instrument Details</span>
+            </div>
+            <div class="screenshot-box" onclick="openLightbox('./public/screenshots/03b_instrument_detail.png', 'MetriSure Instrument Detail Page')">
+              <img class="screenshot-img" src="./public/screenshots/03b_instrument_detail.png" alt="Instrument Detail" />
+              <div class="screenshot-caption"><span>Figure 5.2: Metrological parameter inspection view.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Environmental Readiness Gating -->
+        <div class="alert-box alert-amber" style="margin-top:24px;">
+          <strong>🌡️ Environmental Condition Gating (TestReady Protocol)</strong>
+          Before any test session observations can be accepted by the system, ambient testing conditions must be verified within statutory operating limits:
+          <div style="font-family: var(--font-mono); font-size: 12px; margin-top: 6px;">
+            • Temperature: <strong>22.5 °C</strong> (Class III tolerance range: -10 °C to +40 °C)<br />
+            • Relative Humidity: <strong>45.0%</strong> (Non-condensing, statutory max: 85%)<br />
+            • Atmospheric Pressure: <strong>1013.25 hPa</strong> (Nominal sea-level atmospheric datum)
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(4)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(6)">Continue to Test Sessions & Execution →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 6: TEST SESSION & TEST EXECUTION
+           ======================================================== -->
+      <section class="page-section" id="page-6">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Execution Workflow</span>
+          <span class="tag tag-slate">OIML R-76 Test Cases</span>
+        </div>
+        <h1 class="page-title">Test Session & Test Execution</h1>
+        <p class="page-subtitle">
+          Standardized execution protocols covering all 5 core non-automatic weighing test categories defined in OIML Recommendation R-76.
+        </p>
+
+        <!-- The 5 Core Tests -->
+        <div class="grid-3" style="margin-bottom: 24px;">
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">1. Linearity Test</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Evaluates weighing accuracy across the complete range ($0$ to $Max$) in ascending and descending load cycles. Verifies proportional response.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #2563eb;">Points: 5 kg, 10 kg, 15 kg, 20 kg, 30 kg</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">2. Repeatability Test</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Evaluates instrument indication consistency when the identical load is repeatedly deposited and removed under identical conditions.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #2563eb;">Points: 3x Series at 10.0 kg</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">3. Eccentricity Test</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Verifies load-receptor performance when test loads ($1/3\,Max$) are placed off-center at front-left, front-right, rear-left, rear-right, and center.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #2563eb;">Points: 5 Quadrants at 10.0 kg</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">4. Discrimination Test</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Tests the ability of the instrument to respond to small load increments ($\approx 1.4\,d$). Verifies mechanical / digital sensor sensitivity.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #2563eb;">Points: Zero & Loaded Discrimination</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">5. Zero-Setting Test</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Verifies initial zero-setting and zero-tracking devices maintain the zero indication within $\pm 0.25\,e$ of true zero datum.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #2563eb;">Points: Initial Zero Setting Tolerance</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0; background: #f8fafc;">
+            <div style="font-weight: 700; font-size: 14px; color: #1e293b; margin-bottom: 6px;">Test Data Entry Cycle</div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              Every observation record requires: Standard Load ($L$), Indicated Value ($I$), Fractional Addition ($\Delta L$), and direction.
+            </div>
+            <div style="margin-top: 8px; font-size: 11px; font-family: var(--font-mono); color: #059669;">Auto-Calculated: $P$, $E$, $E_c$, MPE</div>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Test Execution View -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📝 Actual MetriSure Test Execution Workspace</span>
+            <span class="tag tag-slate">Live Application View</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/05_test_execution.png', 'MetriSure Test Execution Workspace')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/test-sessions/1/tests</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/05_test_execution.png" alt="Test Execution Workspace" />
+            <div class="screenshot-caption">
+              <span>Figure 6.1: Active test execution workspace displaying real-time observation entry, error calculation, and MPE bounds.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Production Sessions Comparison -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 Production Evaluation Sessions Reference Data</span>
+            <span class="tag tag-blue">Live Railway Production Database</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Session Identifier</th>
+                <th>Type / Purpose</th>
+                <th>Linearity</th>
+                <th>Repeatability</th>
+                <th>Eccentricity</th>
+                <th>Discrimination</th>
+                <th>Zero-Setting</th>
+                <th>Final Ruling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TS-1045</strong><br /><span style="font-size:11px; color:#64748b;">(Session ID: 1)</span></td>
+                <td>Clean Compliant Evaluation Baseline</td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">APPROVED</span></td>
+              </tr>
+              <tr>
+                <td><strong>TS-20260928131914</strong><br /><span style="font-size:11px; color:#64748b;">(Session ID: 3)</span></td>
+                <td>Controlled Tolerance Breach Demo</td>
+                <td><span class="badge-fail">FAIL (Pt 3)</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-fail">SUBMITTED (FAIL)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(5)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(7)">Continue to Deterministic Compliance Engine →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 7: DETERMINISTIC COMPLIANCE ENGINE
+           ======================================================== -->
+      <section class="page-section" id="page-7">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Core Engine Architecture</span>
+          <span class="tag tag-green">Zero-AI Decision Path</span>
+          <span class="tag tag-amber">DEMO RULEPACK — NOT AUTHORITATIVE</span>
+        </div>
+        <h1 class="page-title">Deterministic Compliance Engine</h1>
+        <p class="page-subtitle">
+          Pure mathematical determination of metrological compliance adhering strictly to OIML Recommendation R-76 without black-box machine learning.
+        </p>
+
+        <!-- Compliance Architecture Flow -->
+        <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff;">
+          <div class="card-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+            <span class="card-title" style="color: #ffffff;">📐 Compliance Evaluation Architecture</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 10px 0;">
+            <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+              <div style="font-size: 11px; color: #94a3b8;">INPUT</div>
+              <div style="font-weight: 700; font-size: 13px;">Validated Observations</div>
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #38bdf8;">$L$, $I$, $\Delta L$, $d$, $e$</div>
+            </div>
+            <div style="color: #64748b; font-size: 18px;">➔</div>
+            <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+              <div style="font-size: 11px; color: #94a3b8;">RULES</div>
+              <div style="font-weight: 700; font-size: 13px;">Versioned RulePack</div>
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #38bdf8;">OIML R-76 v1.0.0</div>
+            </div>
+            <div style="color: #64748b; font-size: 18px;">➔</div>
+            <div style="background: #1d4ed8; padding: 12px 16px; border-radius: 8px; border: 1px solid #3b82f6;">
+              <div style="font-size: 11px; color: #bfdbfe;">ENGINE</div>
+              <div style="font-weight: 700; font-size: 13px;">Deterministic Engine</div>
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #dbeafe;">Exact Arithmetic</div>
+            </div>
+            <div style="color: #64748b; font-size: 18px;">➔</div>
+            <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+              <div style="font-size: 11px; color: #94a3b8;">RULING</div>
+              <div style="font-weight: 700; font-size: 13px;">PASS / FAIL Verdict</div>
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #38bdf8;">Tolerance Bound Check</div>
+            </div>
+            <div style="color: #64748b; font-size: 18px;">➔</div>
+            <div style="background: rgba(255,255,255,0.08); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);">
+              <div style="font-size: 11px; color: #94a3b8;">EXPLAINABILITY</div>
+              <div style="font-weight: 700; font-size: 13px;">DecisionTrace Log</div>
+              <div style="font-size: 10px; font-family: var(--font-mono); color: #38bdf8;">Full Mathematical Proof</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exact Metrological Formulas -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🧮 Mathematical Formulation (OIML R-76 §A.4.4.3)</span>
+          </div>
+          <div class="grid-3">
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b; margin-bottom: 4px;">Corrected Indication ($P$)</div>
+              <div style="font-family: var(--font-mono); font-size: 15px; color: #2563eb; margin-bottom: 6px;">P = I + 0.5d - &Delta;L</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+                Eliminates digital rounding quantization by measuring fractional weights ($\Delta L$) required to trigger the next digital step.
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b; margin-bottom: 4px;">Raw Error ($E$)</div>
+              <div style="font-family: var(--font-mono); font-size: 15px; color: #2563eb; margin-bottom: 6px;">E = I - L</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+                The apparent difference between indicated scale reading ($I$) and reference standard test weight ($L$).
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; font-size: 13px; color: #1e293b; margin-bottom: 4px;">Corrected Error ($E_c$)</div>
+              <div style="font-family: var(--font-mono); font-size: 15px; color: #2563eb; margin-bottom: 6px;">E_c = P - L - E_0</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+                The true metrological error of indication after subtracting the initial zero-setting datum error ($E_0$).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MPE Tolerance Table -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📏 Class III Maximum Permissible Errors (OIML R-76 Table 6)</span>
+            <span class="tag tag-slate">Initial Verification Standards</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Load Range in Verification Scale Intervals ($m / e$)</th>
+                <th>Standard Load Range (DT-3000, $e = 0.01$ kg)</th>
+                <th>Maximum Permissible Error (Initial Verification)</th>
+                <th>Calculated MPE (DT-3000)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$0 \le m \le 500\,e$</td>
+                <td>$0 \le m \le 5.0\text{ kg}$</td>
+                <td><strong>&plusmn; 0.5 e</strong></td>
+                <td><code>&plusmn; 0.005 kg (&plusmn; 5 g)</code></td>
+              </tr>
+              <tr>
+                <td>$500\,e < m \le 2,000\,e$</td>
+                <td>$5.0\text{ kg} < m \le 20.0\text{ kg}$</td>
+                <td><strong>&plusmn; 1.0 e</strong></td>
+                <td><code>&plusmn; 0.010 kg (&plusmn; 10 g)</code></td>
+              </tr>
+              <tr>
+                <td>$2,000\,e < m \le 10,000\,e$</td>
+                <td>$20.0\text{ kg} < m \le 30.0\text{ kg}$</td>
+                <td><strong>&plusmn; 1.5 e</strong></td>
+                <td><code>&plusmn; 0.015 kg (&plusmn; 15 g)</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Critical Safety Disclaimer -->
+        <div class="alert-box alert-amber">
+          <strong>⚠️ Critical Metrological Safety Principle: Non-AI Statutory Decision Path</strong>
+          In strict compliance with statutory legal metrology mandates, MetriSure ensures that <strong>NO generative AI, machine learning neural network, or probabilistic model participates in the determination of statutory PASS / FAIL verdicts</strong>. All compliance decisions are 100% deterministic, reproducible, and verifiable via standardized arithmetic formulas.
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(6)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(8)">Continue to Why FAIL & DecisionTrace →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 8: WHY FAIL + DECISION TRACE
+           ======================================================== -->
+      <section class="page-section" id="page-8">
+        <div class="badge-bar">
+          <span class="tag tag-red">Deterministic Failure Inspection</span>
+          <span class="tag tag-amber">DEMO DATA — FOR DEMONSTRATION ONLY</span>
+          <span class="tag tag-slate">Session: TS-20260928131914</span>
+        </div>
+        <h1 class="page-title">Why FAIL & DecisionTrace</h1>
+        <p class="page-subtitle">
+          Transparent, explainable metrology in action: deep inspection of an actual controlled tolerance exceedance on the production backend.
+        </p>
+
+        <!-- Controlled Failure Summary Card -->
+        <div class="card" style="border-left: 4px solid var(--fail);">
+          <div class="card-header">
+            <span class="card-title" style="color: var(--fail);">🚨 Deterministic Compliance Result: FAIL</span>
+            <span class="tag tag-red">Linearity Test Point 3 Breach</span>
+          </div>
+          <div class="grid-2">
+            <div>
+              <div style="font-size: 13px; color: #475569; line-height: 1.8;">
+                <div><strong>Production Session:</strong> <code>TS-20260928131914</code> (Session ID: 3)</div>
+                <div><strong>Failed Test Case:</strong> Linearity Test (Test Case ID: 11)</div>
+                <div><strong>Failed Observation:</strong> <code>LINEARITY-3</code> (Observation ID: 33)</div>
+                <div><strong>Reference Standard Load ($L$):</strong> <code>15.00 kg</code> ($1,500\,e$)</div>
+                <div><strong>Indicated Reading ($I$):</strong> <code>15.02 kg</code></div>
+                <div><strong>Fractional Weight Added ($\Delta L$):</strong> <code>0.00 kg</code></div>
+              </div>
+            </div>
+            <div style="background: #fef2f2; padding: 14px 18px; border-radius: 8px; border: 1px solid #fecaca;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #b91c1c; margin-bottom: 6px;">
+                Breach Calculation
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 13px; line-height: 1.8; color: #7f1d1d;">
+                <div>Corrected Indication: $P = 15.025\text{ kg}$</div>
+                <div>Corrected Error: $E_c = \mathbf{+0.025\text{ kg}}\;(+2.5\,e)$</div>
+                <div>Permissible Limit (MPE): $\mathbf{\pm 0.010\text{ kg}}\;(\pm 1.0\,e)$</div>
+                <div>Tolerance Breach: $\mathbf{+0.015\text{ kg}}\;(+150\%)$</div>
+                <div style="margin-top: 4px; font-weight: 700; color: #991b1b;">Verdict: FAIL (Rule: OIML R-76 §Table 6)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Why FAIL View -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔍 Actual Why FAIL Analysis Interface</span>
+            <span class="tag tag-slate">Live Application Capture</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/07_why_fail_session3.png', 'MetriSure Why FAIL Detailed Root-Cause Analysis')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/why-fail/3</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/07_why_fail_session3.png" alt="Why FAIL Analysis View" />
+            <div class="screenshot-caption">
+              <span>Figure 8.1: Live Why FAIL page displaying the exact root cause of the Linearity Point 3 exceedance.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Decision Trace View -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📜 Step-by-Step Mathematical DecisionTrace</span>
+            <span class="tag tag-slate">Audit Traceability</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/08_decision_trace_session3.png', 'MetriSure Step-by-Step DecisionTrace Execution')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/decision-trace/3</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/08_decision_trace_session3.png" alt="Decision Trace View" />
+            <div class="screenshot-caption">
+              <span>Figure 8.2: Detailed DecisionTrace displaying the exact mathematical calculation chain and applicable rule clause.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compliant Comparison -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">⚖️ Comparison: Compliant TS-1045 vs Failed Session 3 at 15.0 kg</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Test Parameter</th>
+                <th>Compliant Baseline (TS-1045)</th>
+                <th>Controlled Failure Demo (Session 3)</th>
+                <th>Metrological Analysis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Standard Load ($L$)</strong></td>
+                <td>15.00 kg</td>
+                <td>15.00 kg</td>
+                <td>Identical nominal test point ($1,500\,e$)</td>
+              </tr>
+              <tr>
+                <td><strong>Indicated Reading ($I$)</strong></td>
+                <td><strong>15.00 kg</strong></td>
+                <td><strong>15.02 kg</strong></td>
+                <td>+20 g positive deviation on Session 3</td>
+              </tr>
+              <tr>
+                <td><strong>Corrected Error ($E_c$)</strong></td>
+                <td><strong>+0.010 kg</strong> ($+1.0\,e$)</td>
+                <td><strong>+0.025 kg</strong> ($+2.5\,e$)</td>
+                <td>Session 3 error exceeds upper threshold</td>
+              </tr>
+              <tr>
+                <td><strong>Applicable MPE Limit</strong></td>
+                <td>&plusmn; 0.010 kg (&plusmn; 1.0 e)</td>
+                <td>&plusmn; 0.010 kg (&plusmn; 1.0 e)</td>
+                <td>Class III Table 6 standard tolerance</td>
+              </tr>
+              <tr>
+                <td><strong>Compliance Ruling</strong></td>
+                <td><span class="badge-pass">PASS</span></td>
+                <td><span class="badge-fail">FAIL</span></td>
+                <td>Deterministically derived via exact arithmetic</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(7)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(9)">Continue to Review, Approval & Reports →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 9: REVIEW, APPROVAL & REPORT GENERATION
+           ======================================================== -->
+      <section class="page-section" id="page-9">
+        <div class="badge-bar">
+          <span class="tag tag-blue">Governance Lifecycle</span>
+          <span class="tag tag-slate">Four-Eye Principle</span>
+        </div>
+        <h1 class="page-title">Review, Approval & Report Generation</h1>
+        <p class="page-subtitle">
+          From completed test sessions to cryptographically sealed Digital Test Reports supporting legal metrology laboratories.
+        </p>
+
+        <!-- Governance Pipeline Flow -->
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 13px; color: #2563eb; margin-bottom: 4px;">Phase 1: Test Complete</div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Technician finalizes session. System locks raw data against further modifications.
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 13px; color: #d97706; margin-bottom: 4px;">Phase 2: Review Workspace</div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Reviewer inspects observations, reviews optical display captures, and appends signed audit notes.
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 13px; color: #059669; margin-bottom: 4px;">Phase 3: Final Approval</div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Authorized signatory executes final sign-off, confirming report issuance authorization.
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-weight: 700; font-size: 13px; color: #7c3aed; margin-bottom: 4px;">Phase 4: Sealed Report</div>
+            <div style="font-size: 12px; color: var(--text-muted);">
+              Immutable PDF test report generated with SHA-256 cryptographic digest and QR verification.
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Review Workspace -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔍 Actual Review Workspace Interface</span>
+            <span class="tag tag-slate">Live Application View</span>
+          </div>
+          <div class="screenshot-box" onclick="openLightbox('./public/screenshots/09_review_workspace.png', 'MetriSure Review Queue & Workspace')">
+            <div class="screenshot-header">
+              <div class="dot-controls"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <div class="screenshot-url">https://metri-sure.vercel.app/review</div>
+              <div style="color: #64748b; font-size: 11px;">🔍 Click to Zoom</div>
+            </div>
+            <img class="screenshot-img" src="./public/screenshots/09_review_workspace.png" alt="Review Workspace View" />
+            <div class="screenshot-caption">
+              <span>Figure 9.1: Review queue listing sessions submitted for independent scrutiny.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Screenshot: Report Repository & Issued PDF -->
+        <div class="grid-2">
+          <div class="card" style="margin-bottom:0;">
+            <div class="card-header">
+              <span class="card-title" style="font-size:14px;">📁 Report Repository</span>
+            </div>
+            <div class="screenshot-box" onclick="openLightbox('./public/screenshots/10_reports_repository.png', 'MetriSure Report Repository')">
+              <img class="screenshot-img" src="./public/screenshots/10_reports_repository.png" alt="Report Repository" />
+              <div class="screenshot-caption"><span>Figure 9.2: Issued report repository with SHA-256 digests.</span></div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div class="card-header">
+              <span class="card-title" style="font-size:14px;">📄 Issued Test Report (TR-DEMO-1045)</span>
+            </div>
+            <div class="screenshot-box" onclick="openLightbox('./public/screenshots/10b_report_detail.png', 'MetriSure Report Detail & Download')">
+              <img class="screenshot-img" src="./public/screenshots/10b_report_detail.png" alt="Report Detail" />
+              <div class="screenshot-caption"><span>Figure 9.3: Report inspection view with sealed PDF download.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scope Disclaimer -->
+        <div class="alert-box alert-amber" style="margin-top:24px;">
+          <strong>ℹ️ MetriSure Scope & Boundary Clarity</strong>
+          MetriSure automates and generates <strong>Digital Test Reports</strong> supporting metrology laboratories and testing officers during instrument evaluation. MetriSure does NOT grant statutory legal model approval, initial verification certificates, or stamping without the formal intervention and authoritative decree of the designated State Legal Metrology Controller.
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(8)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(10)">Continue to End-to-End Demo & Architecture →</button>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PAGE 10: END-TO-END DEMO, ARCHITECTURE & ACCESS
+           ======================================================== -->
+      <section class="page-section" id="page-10">
+        <div class="badge-bar">
+          <span class="tag tag-blue">System Topology</span>
+          <span class="tag tag-slate">SIH 2026 Evaluation Hub</span>
+        </div>
+        <h1 class="page-title">End-to-End Demo & Deployed Architecture</h1>
+        <p class="page-subtitle">
+          Complete production architecture, live demonstration flows, and instant access links for SIH 2026 evaluators.
+        </p>
+
+        <!-- Pass vs Fail Flow Overview -->
+        <div class="grid-2">
+          <div class="card" style="border-top: 4px solid var(--pass);">
+            <div class="card-title" style="color: var(--pass);">✅ PASS FLOW — Session TS-1045</div>
+            <div style="font-size: 12px; line-height: 1.8; color: #475569; margin-top: 10px;">
+              <div><strong>1. Instrument:</strong> DT-3000 (Class III, 30 kg, $e = 0.01$ kg)</div>
+              <div><strong>2. Test Cases:</strong> 5 of 5 PASS (Linearity, Repeatability, Eccentricity, Discrimination, Zero-Setting)</div>
+              <div><strong>3. Compliance:</strong> Pure deterministic calculation within MPE bounds</div>
+              <div><strong>4. Review & Approval:</strong> Approved by Dr. Anita Desai (Approver)</div>
+              <div><strong>5. Report Issued:</strong> <code>TR-DEMO-1045</code> (PDF Generated)</div>
+              <div><strong>6. SHA-256 Digest:</strong> <code>a8eb448362d06fd995c9eede23aeb525...</code></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top: 4px solid var(--fail);">
+            <div class="card-title" style="color: var(--fail);">❌ FAIL FLOW — Session TS-20260928131914</div>
+            <div style="font-size: 12px; line-height: 1.8; color: #475569; margin-top: 10px;">
+              <div><strong>1. Instrument:</strong> DT-3000 (Class III, 30 kg, $e = 0.01$ kg)</div>
+              <div><strong>2. Test Cases:</strong> 4 PASS, 1 FAIL (Linearity Point 3 at 15.0 kg)</div>
+              <div><strong>3. Compliance:</strong> Calculated Error $E_c = +0.025$ kg > MPE $0.010$ kg</div>
+              <div><strong>4. Explainability:</strong> Why FAIL view isolates root cause ($+150\%$ breach)</div>
+              <div><strong>5. DecisionTrace:</strong> Step-by-step arithmetic proof logged for audit</div>
+              <div><strong>6. Status:</strong> SUBMITTED (Flagged for Review / Retest)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deployed Production Topology -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🌐 Production Deployment Architecture</span>
+            <span class="tag tag-green">All Systems Live</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 10px 0;">
+            <div style="background: #f8fafc; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--border-subtle); flex: 1; min-width: 180px;">
+              <div style="font-size: 11px; text-transform: uppercase; color: #2563eb; font-weight: 700;">Client Tier</div>
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin: 4px 0;">Vercel Edge Network</div>
+              <div style="font-size: 12px; color: var(--text-muted);">React 18, TypeScript, Vite, Tailwind CSS v4, Lucide Icons</div>
+            </div>
+            <div style="color: #94a3b8; font-weight: bold; font-size: 20px;">➔</div>
+            <div style="background: #f8fafc; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--border-subtle); flex: 1; min-width: 180px;">
+              <div style="font-size: 11px; text-transform: uppercase; color: #059669; font-weight: 700;">Backend Tier</div>
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin: 4px 0;">Railway Container Service</div>
+              <div style="font-size: 12px; color: var(--text-muted);">FastAPI, Python 3.12, Uvicorn, SQLAlchemy, Pydantic</div>
+            </div>
+            <div style="color: #94a3b8; font-weight: bold; font-size: 20px;">➔</div>
+            <div style="background: #f8fafc; padding: 14px 18px; border-radius: 8px; border: 1px solid var(--border-subtle); flex: 1; min-width: 180px;">
+              <div style="font-size: 11px; text-transform: uppercase; color: #7c3aed; font-weight: 700;">Persistence Tier</div>
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin: 4px 0;">SQLite Storage Engine</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Relational schema, SHA-256 evidence hashing, ReportLab PDF</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Access QR Codes & Buttons -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📱 Live Evaluation Access & Repository QR Codes</span>
+          </div>
+          <div class="grid-3">
+            <div style="text-align: center; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <img src="./public/assets/qr_live_app.png" alt="Live App QR" style="width: 140px; height: 140px; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px;" />
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 4px;">Live MetriSure App</div>
+              <div style="font-size: 11px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">metri-sure.vercel.app</div>
+              <a href="https://metri-sure.vercel.app" target="_blank" class="btn btn-primary" style="font-size: 12px; width: 100%; justify-content: center;">Open Application ↗</a>
+            </div>
+
+            <div style="text-align: center; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <img src="./public/assets/qr_guidebook.png" alt="Guidebook QR" style="width: 140px; height: 140px; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px;" />
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 4px;">Digital Guidebook</div>
+              <div style="font-size: 11px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">metri-sure.vercel.app/guidebook</div>
+              <a href="https://metri-sure.vercel.app/guidebook" target="_blank" class="btn btn-secondary" style="font-size: 12px; width: 100%; justify-content: center;">Share Guidebook ↗</a>
+            </div>
+
+            <div style="text-align: center; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <img src="./public/assets/qr_github.png" alt="GitHub Repo QR" style="width: 140px; height: 140px; border-radius: 6px; border: 1px solid #cbd5e1; margin-bottom: 12px;" />
+              <div style="font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 4px;">GitHub Repository</div>
+              <div style="font-size: 11px; font-family: var(--font-mono); color: #64748b; margin-bottom: 12px;">pavandevarunaik2006-lang/MetriSure</div>
+              <a href="https://github.com/pavandevarunaik2006-lang/MetriSure" target="_blank" class="btn btn-secondary" style="font-size: 12px; width: 100%; justify-content: center;">View Source Code ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-footer-nav">
+          <button class="btn btn-secondary" onclick="goToPage(9)">← Back</button>
+          <button class="btn btn-primary" onclick="goToPage(1)">Back to Cover (Page 1) ↺</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Interactive Lightbox Modal -->
+  <div class="lightbox" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <div class="lightbox-bar">
+        <span id="lightboxTitle">Inspection View</span>
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightboxImg" src="" alt="Enlarged inspection view" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const totalPages = 10;
+
+    const pageTitles = [
+      "Page 1 — Cover & Executive Summary",
+      "Page 2 — What is MetriSure?",
+      "Page 3 — Complete System Workflow",
+      "Page 4 — Dashboard & Role-Based Access Control",
+      "Page 5 — Instrument & Laboratory Setup",
+      "Page 6 — Test Sessions & Test Execution",
+      "Page 7 — Deterministic Compliance Engine",
+      "Page 8 — Why FAIL & DecisionTrace",
+      "Page 9 — Review, Approval & Report Generation",
+      "Page 10 — End-to-End Demo & Architecture"
+    ];
+
+    function goToPage(num) {
+      if (num < 1 || num > totalPages) return;
+      currentPage = num;
+
+      // Update active section
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      const targetSec = document.getElementById('page-' + num);
+      if (targetSec) targetSec.classList.add('active');
+
+      // Update sidebar nav
+      document.querySelectorAll('.nav-item').forEach((item, idx) => {
+        if (idx === num - 1) {
+          item.classList.add('active');
+          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Update topbar breadcrumb and counter
+      document.getElementById('breadcrumbTitle').innerText = pageTitles[num - 1];
+      document.getElementById('pageIndicator').innerText = `Page ${num} of ${totalPages}`;
+
+      // Scroll content container to top
+      document.querySelector('.content-container').scrollTop = 0;
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        goToPage(currentPage + 1);
+      } else {
+        goToPage(1);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        goToPage(currentPage - 1);
+      }
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    // Lightbox functions
+    function openLightbox(src, title) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxTitle').innerText = title || "Enlarged Inspection View";
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'n') {
+        nextPage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'p') {
+        prevPage();
+      } else if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key >= '1' && e.key <= '9') {
+        goToPage(parseInt(e.key));
+      } else if (e.key === '0') {
+        goToPage(10);
+      }
+    });
+  </script>
+</body>
+</html>
